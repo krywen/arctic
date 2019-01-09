@@ -349,8 +349,8 @@ class TickStore(object):
         logger.info("Got data in %s secs, creating DataFrame..." % t)
         mgr = _arrays_to_mgr(arrays, columns, index, columns, dtype=None)
         rtn = pd.DataFrame(mgr)
-        # Present data in the user's default TimeZone
-        rtn.index = rtn.index.tz_convert(mktz())
+        # Present data in UTC
+        rtn.index = rtn.index.tz_convert(mktz('UTC'))
 
         t = (dt.now() - perf_start).total_seconds()
         ticks = len(rtn)
